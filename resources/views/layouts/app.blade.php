@@ -10,11 +10,21 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
 
-        <!-- Scripts -->
+        {{--
+        <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
         <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        --}}
+
+        @vite([
+
+            'resources/css/app.css',
+            'public/dist/css/adminlte.min.css',
+            'resources/js/app.js',
+            'public/dist/js/adminlte.min.js',
+
+        ])
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
