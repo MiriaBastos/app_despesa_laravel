@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form-control {
+    border-radius: 0.25rem !important;
+    border: 1px solid #ced4da !important;
+}
