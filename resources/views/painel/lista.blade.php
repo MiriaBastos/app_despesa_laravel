@@ -105,6 +105,11 @@
                                                     {{ $despesas->created_at }}
                                                 </td>
                                                 <td class="text-right">
+                                                    <a href="{{action('\App\Http\Controllers\DespesaController@getForm', ['despesa_id'=> $despesas->id])}}" class="btn btn-sm btn-warning">
+                                                        <i class="fa fa-pencel"></i>
+                                                        Editar
+                                                    </a>
+
                                                     <a href="{{action('\App\Http\Controllers\DespesaController@getDeleteDespesa', ['despesa_id'=> $despesas->id])}}" class="btn btn-sm btn-danger">
                                                         <i class="fa fa-trash"></i>
                                                         Excluir
