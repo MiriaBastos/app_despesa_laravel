@@ -14,9 +14,14 @@ class DespesaController extends Controller
         return "Financeiro";
     }
 
-    public function getForm($id = 0)
+    public function getForm($despesa_id = 0)
     {
         $row = new Despesa();
+
+        if ($despesa_id > 0) {
+            $row = Despesa::find($despesa_id);
+
+        }
 
         $ddlmes = [
             '1' => 'janeiro',
@@ -58,12 +63,14 @@ class DespesaController extends Controller
 
     public function postForm(Request $request)
     {
-        $row = new Despesa();
-        $userId = Auth::id();
+        if ($request->id > 0) {
+            $row = Despesa::find($request->id);
+        }else{
+            $row = new Despesa();
+        }
 
-        $row->user_id  = $userId;
-
-        $row->ano  = $request->ano;
+        $row->user_id = Auth::id();
+        $row->ano = $request->ano;
         $row->mes = $request->mes;
         $row->dia = $request->dia;
         $row->tipo = $request->tipo;
@@ -72,7 +79,13 @@ class DespesaController extends Controller
 
         $row->save();
 
-        return redirect()->action('\App\Http\Controllers\DespesaController@getForm');
+        if(!$request->id) {
+            return redirect()->action('\App\Http\Controllers\DespesaController@getForm')
+                ->with('success', 'Cadastro realizado com sucesso!');
+        } else {
+            return redirect()->action('\App\Http\Controllers\DespesaController@getLista')
+                ->with('success', 'Cadastro editado com sucesso!');
+        }
     }
 
     public function getLista()
@@ -128,7 +141,8 @@ class DespesaController extends Controller
             return "Falha ao Deletar";
         }
 
-        return redirect()->action('\App\Http\Controllers\DespesaController@getLista');
+        return redirect()->action('\App\Http\Controllers\DespesaController@getLista')
+                ->with('success', 'Deletado com sucesso!');
     }
 
 }

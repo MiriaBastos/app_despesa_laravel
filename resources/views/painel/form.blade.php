@@ -1,7 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-600 leading-tight">
-            {{ __('Registro de nova despesa') }}
+
+            <h3 style="margin-top: 0">
+                @if ($row->id > 0)
+                    Editar
+                @else
+                    Registrar nova
+                @endif
+                    despesa
+            </h3>
         </h2>
     </x-slot>
     <br><br>
@@ -9,6 +17,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
+
+                    @if(session('success'))
+                        <div id="successMessage" class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     <div class="card">
                         <div class="card-body">
                             {{ html()
@@ -16,6 +31,9 @@
                                 ->id('formAdicionarEditar')
                                 ->open()
                             }}
+
+                            {{ html()->hidden('id') }}
+
                                 <div class="row mb-3">
                                     <div class="col-sm-2">
                                         <label for="dia" class="form-label">Dia</label>
@@ -76,7 +94,20 @@
                                 <br>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <button type="submit" class="btn btn-outline-success">Cadastrar</button>
+                                        @if ($row->id > 0)
+                                            {{ html()
+                                                ->button('EDITAR')
+                                                ->type('submit')
+                                                ->class('btn btn-outline-success')
+                                            }}
+                                        @else
+                                            {{ html()
+                                                ->button('CADASTRAR')
+                                                ->type('submit')
+                                                ->class('btn btn-outline-success')
+                                            }}
+                                        @endif
+
                                     </div>
                                 </div>
                             {{ html()->form()->close() }}
@@ -86,4 +117,13 @@
             </div>
         </div>
     </div>
+    @push('javascript')
+        <script>
+            setTimeout(function() {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000); // 5000 milissegundos = 5 segundos
+        </script>
+    @endpush
 </x-app-layout>
+
+

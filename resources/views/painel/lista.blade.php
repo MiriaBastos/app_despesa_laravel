@@ -9,9 +9,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
+
+                    @if(session('success'))
+                        <div id="successMessage" class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
+
                                 {{ html()
                                     ->form( action('\App\Http\Controllers\DespesaController@getLista'))
                                     ->id('formAdicionarEditar')
@@ -126,4 +134,11 @@
             </div>
         </div>
     </div>
+    @push('javascript')
+        <script>
+            setTimeout(function() {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000); // 5000 milissegundos = 5 segundos
+        </script>
+    @endpush
 </x-app-layout>
