@@ -88,7 +88,7 @@ class DespesaController extends Controller
         }
     }
 
-    public function getLista()
+    public function getLista(Request $request)
     {
         $userId = Auth::id();
 
@@ -120,10 +120,11 @@ class DespesaController extends Controller
             '2025' => '2025',
         ];
 
-        $row = (new Despesa())->listaDespesaPorCliente($userId);
+        $row = (new Despesa())->listaDespesaPorCliente($userId, $request);
 
         $vars = [
             'row' => $row,
+            'request' => $request,
             'ddltipo' => $ddltipo,
             'ddlmes' => $ddlmes,
             'ddlano' => $ddlano,

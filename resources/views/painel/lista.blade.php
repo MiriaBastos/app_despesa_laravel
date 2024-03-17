@@ -19,11 +19,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="col-sm-12">
-
                                 {{ html()
-                                    ->form( action('\App\Http\Controllers\DespesaController@getLista'))
-                                    ->id('formAdicionarEditar')
-                                    ->open()
+                                        ->modelForm($row, 'GET', action('\App\Http\Controllers\DespesaController@getLista'))
+                                        ->id('formAdicionarEditar')
+                                        ->open()
                                 }}
                                 {{ html()->hidden('id') }}
                                 <br>
@@ -31,7 +30,7 @@
                                     <div class="col-sm-5">
                                         <label for="descricao" class="form-label">Descrição</label>
                                         {{ html()
-                                            ->text('descricao')
+                                            ->text('descricao', $request->descricao)
                                             ->class('form-control')
                                         }}
                                     </div>
@@ -39,41 +38,43 @@
                                     <div class="col-sm-3">
                                         <label for="tipo" class="form-label">Tipo de Despesa</label>
                                         {{ html()
-                                            ->select('tipo', ['' => 'Não informado'] + $ddltipo)
+                                            ->select('tipo', ['' => 'Não informado'] + $ddltipo, $request->tipo)
                                             ->class('form-control')
-                                            ->id('tipo')
-                                            ->required()
                                         }}
                                     </div>
                                     <div class="col-sm-2">
                                         <label for="mes" class="form-label">Mês</label>
                                         {{ html()
-                                            ->select('mes', ['' => 'Não informado'] + $ddlmes)
+                                            ->select('mes', ['' => 'Não informado'] + $ddlmes, $request->mes)
                                             ->class('form-control')
-                                            ->id('mes')
-                                            ->required()
                                         }}
                                     </div>
 
                                     <div class="col-sm-2">
                                         <label for="ano" class="form-label">Ano</label>
                                         {{ html()
-                                            ->select('ano', ['' => 'Não informado'] + $ddlano)
+                                            ->select('ano', ['' => 'Não informado'] + $ddlano, $request->ano)
                                             ->class('form-control')
-                                            ->id('ano')
-                                            ->required()
                                         }}
                                     </div>
-
                                 </div>
                                 <br><br>
                                 <div class="row">
                                     <div class="col-sm-12 text-end">
-                                        {{ html()->button('PESQUISAR')->type('submit')->class('btn btn-outline-info') }}
+                                        {{ html()
+                                            ->button('PESQUISAR')
+                                            ->type('submit')
+                                            ->class('btn btn-outline-info')
+                                        }}
+                                        <a href="{{ action('\App\Http\Controllers\DespesaController@getLista') }}"
+                                            class="btn btn-outline-secondary">LIMPAR FILTRO</a>
                                     </div>
                                 </div>
                                 {{ html()->form()->close() }}
-                                <br><br>
+
+                                <br>
+                                <br>
+
                                 <table style="width: 100%" class="table table-striped table-hover" id="dataTableHorario"
                                     data-url="#">
                                     <thead>

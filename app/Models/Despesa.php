@@ -14,22 +14,34 @@ class Despesa extends Authenticatable
 
     protected $table = 'cli_despesas';
 
-    public function listaDespesaPorCliente($userId)
+    public function listaDespesaPorCliente($userId, $request)
     {
-        $ret = [];
-        $selectBase = $this->select()->where('user_id', $userId)->get();
+        $query = $this->select()
+                      ->where('user_id', $userId);
 
-        foreach($selectBase as $row) {
-            $ret[] = $row;
+        if ($request->descricao) {
+            $descricao = $request->descricao;
+            $query->where('descricao', 'LIKE', "%$descricao%");
         }
 
-        return $ret;
+        if ($request->tipo) {
+            $query->where('tipo', $request->tipo);
+        }
+
+        if ($request->mes) {
+            $query->whereMonth('mes', $request->mes);
+        }
+
+        if ($request->ano) {
+            $query->whereYear('ano', $request->ano);
+        }
+
+        return $query->get();
     }
 
     public function deletaDespesa($despesa_id)
     {
         return $this->where('id', $despesa_id)->delete();
-
     }
 
 }
