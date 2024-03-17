@@ -11,18 +11,18 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <link rel="stylesheet" href="{{ asset('/build/assets/app-0IKQ0ucb.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('/build/assets/app-0IKQ0ucb.css') }}">
         <link rel="stylesheet" href="{{ asset('/build/assets/adminlte-DZwx4QTG.css') }}">
         <script src="{{ asset('/build/assets/adminlte.min-DCYgbvMu.js') }}"></script>
-        <script src="{{ asset('/build/assets/app-BgvOogpt.js') }}"></script>
+        <script src="{{ asset('/build/assets/app-BgvOogpt.js') }}"></script> --}}
 
 
-        {{-- @vite([
+        @vite([
             'resources/css/app.css',
             'public/dist/css/adminlte.min.css',
             'resources/js/app.js',
             'public/dist/js/adminlte.min.js',
-        ]) --}}
+        ])
 
     </head>
     <body class="font-sans antialiased">
@@ -42,6 +42,8 @@
             <main>
                 {{ $slot }}
             </main>
+
+            @stack('javascript')
         </div>
     </body>
 </html>
