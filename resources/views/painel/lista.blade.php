@@ -67,7 +67,13 @@
                                             ->class('btn btn-outline-info')
                                         }}
                                         <a href="{{ action('\App\Http\Controllers\DespesaController@getLista') }}"
-                                            class="btn btn-outline-secondary">LIMPAR FILTRO</a>
+                                            class="btn btn-outline-secondary">
+                                            LIMPAR FILTRO
+                                        </a>
+                                        <a href="#"
+                                            class="btn btn-outline-primary btnexcel">
+                                            BAIXAR RELATÓRIO EM EXCEL
+                                        </a>
                                     </div>
                                 </div>
                                 {{ html()->form()->close() }}
@@ -99,19 +105,20 @@
                                                     {{ $despesas->descricao }}
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ $despesas->tipo }}
+                                                    {{ App\Models\Despesa::dropDowmTipoCategoria()[$despesas->tipo] }}
                                                 </td>
                                                 <td>
-                                                    {{ $despesas->mes }}
+                                                    {{ App\Models\Despesa::mesesEmPortugues()[$despesas->mes] }}
                                                 </td>
                                                 <td>
                                                     {{ $despesas->ano }}
                                                 </td>
                                                 <td>
-                                                    {{ $despesas->valor }}
+                                                    {{ number_format($despesas->valor, 2, ',', '.') }}
                                                 </td>
                                                 <td>
-                                                    {{ $despesas->created_at }}
+                                                    {{ date('d/m/Y', strtotime($despesas->created_at)) }}
+
                                                 </td>
                                                 <td class="text-right">
                                                     <a href="{{action('\App\Http\Controllers\DespesaController@getForm', ['despesa_id'=> $despesas->id])}}" class="btn btn-sm btn-warning">
@@ -119,7 +126,7 @@
                                                         Editar
                                                     </a>
 
-                                                    <a href="{{action('\App\Http\Controllers\DespesaController@getDeleteDespesa', ['despesa_id'=> $despesas->id])}}" class="btn btn-sm btn-danger">
+                                                    <a href="{{action('\App\Http\Controllers\DespesaController@getDeleteDespesa', ['despesa_id'=> $despesas->id])}}" class="btn btn-sm btn-danger alertaExcluir">
                                                         <i class="fa fa-trash"></i>
                                                         Excluir
                                                     </a>
@@ -140,6 +147,19 @@
             setTimeout(function() {
                 document.getElementById('successMessage').style.display = 'none';
             }, 5000); // 5000 milissegundos = 5 segundos
+
+            $('.btnexcel').click(function() {
+                alert('Em construção, aguarde!! Metal e Miriã estão trabalhando');
+            });
+
+            $('.alertaExcluir').click(function() {
+                if (confirm('Deseja realmente excluir esta despesa?')) {
+                    window.location.reload();
+                } else {
+                    alert('Exclusão cancelada pelo usuário.');
+                    return false;
+                }
+            });
         </script>
     @endpush
 </x-app-layout>
