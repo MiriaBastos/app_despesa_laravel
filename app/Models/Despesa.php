@@ -29,11 +29,11 @@ class Despesa extends Authenticatable
         }
 
         if ($request->mes) {
-            $query->whereMonth('mes', $request->mes);
+            $query->where('mes', $request->mes);
         }
 
         if ($request->ano) {
-            $query->whereYear('ano', $request->ano);
+            $query->where('ano', $request->ano);
         }
 
         return $query->get();
@@ -44,4 +44,32 @@ class Despesa extends Authenticatable
         return $this->where('id', $despesa_id)->delete();
     }
 
+    public static function mesesEmPortugues()
+    {
+        return [
+            1 => 'Janeiro',
+            2 => 'Fevereiro',
+            3 => 'Março',
+            4 => 'Abril',
+            5 => 'Maio',
+            6 => 'Junho',
+            7 => 'Julho',
+            8 => 'Agosto',
+            9 => 'Setembro',
+            10 => 'Outubro',
+            11 => 'Novembro',
+            12 => 'Dezembro'
+        ];
+    }
+
+    public static function dropDowmTipoCategoria()
+    {
+        return [
+            1 => 'Alimentação',
+            2 => 'Educação',
+            3 => 'Lazer',
+            4 => 'Saúde',
+            5 => 'Transporte',
+        ];
+    }
 }
