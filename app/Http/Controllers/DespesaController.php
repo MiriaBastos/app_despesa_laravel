@@ -75,7 +75,12 @@ class DespesaController extends Controller
         $row->dia = $request->dia;
         $row->tipo = $request->tipo;
         $row->descricao = $request->descricao;
-        $row->valor = $request->valor;
+        $valorDigitado = $request->valor;
+
+        $valorFormatado = str_replace('.', '', $valorDigitado);
+        $valorFormatado = str_replace(',', '.', $valorFormatado);
+
+        $row->valor = $valorFormatado;
 
         $row->save();
 
