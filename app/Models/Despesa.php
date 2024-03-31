@@ -24,6 +24,10 @@ class Despesa extends Authenticatable
             $query->where('descricao', 'LIKE', "%$descricao%");
         }
 
+        if ($request->dia) {
+            $query->where('dia', $request->dia);
+        }
+
         if ($request->tipo) {
             $query->where('tipo', $request->tipo);
         }

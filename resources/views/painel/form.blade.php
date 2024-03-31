@@ -38,7 +38,7 @@
                                     <div class="col-sm-2">
                                         <label for="dia" class="form-label">Dia</label>
                                         {{ html()
-                                            ->text('dia')
+                                            ->number('dia')
                                             ->class('form-control')
                                             ->id('dia')
                                             ->required()
