@@ -96,7 +96,13 @@
                                         </tr>
                                     </thead>
                                     <tbody id="listaDespesas">
+                                        @php
+                                            $totalDespesas = 0;
+                                        @endphp
                                         @foreach ($row as $despesas)
+                                            @php
+                                                $totalDespesas += $despesas->valor;
+                                            @endphp
                                             <tr>
                                                 <td>
                                                     {{ $despesas->id }}
@@ -134,6 +140,13 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5" class="text-right"><strong>TOTAL:</strong></td>
+                                            <td>{{ number_format($totalDespesas, 2, ',', '.') }}</td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
