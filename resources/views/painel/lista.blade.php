@@ -27,7 +27,7 @@
                                 {{ html()->hidden('id') }}
                                 <br>
                                 <div class="row">
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-3">
                                         <label for="descricao" class="form-label">Descrição</label>
                                         {{ html()
                                             ->text('descricao', $request->descricao)
@@ -39,6 +39,13 @@
                                         <label for="tipo" class="form-label">Tipo de Despesa</label>
                                         {{ html()
                                             ->select('tipo', ['' => 'Não informado'] + $ddltipo, $request->tipo)
+                                            ->class('form-control')
+                                        }}
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="dia" class="form-label">Dia</label>
+                                        {{ html()
+                                            ->number('dia', $request->dia)
                                             ->class('form-control')
                                         }}
                                     </div>
@@ -60,7 +67,30 @@
                                 </div>
                                 <br><br>
                                 <div class="row">
-                                    <div class="col-sm-12 text-end">
+                                    <div class="col-sm-6">
+                                        <label>Período de Batidas</label>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">De</div>
+                                                    {{ html()
+                                                        ->date("data_batida_de")
+                                                        ->class('form-control')
+                                                    }}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">Até</div>
+                                                    {{ html()
+                                                        ->date("data_batida_ate")
+                                                        ->class('form-control')
+                                                    }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 text-end">
                                         {{ html()
                                             ->button('PESQUISAR')
                                             ->type('submit')
@@ -88,6 +118,7 @@
                                             <th>Cód.</th>
                                             <th>Descrição</th>
                                             <th class="text-center">Tipo Despesa</th>
+                                            <th>Dia</th>
                                             <th>Mês</th>
                                             <th>Ano</th>
                                             <th>Valor</th>
@@ -112,6 +143,9 @@
                                                 </td>
                                                 <td class="text-center">
                                                     {{ App\Models\Despesa::dropDowmTipoCategoria()[$despesas->tipo] }}
+                                                </td>
+                                                <td>
+                                                    {{ $despesas->dia }}
                                                 </td>
                                                 <td>
                                                     {{ App\Models\Despesa::mesesEmPortugues()[$despesas->mes] }}
@@ -142,7 +176,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="5" class="text-right"><strong>TOTAL:</strong></td>
+                                            <td colspan="6" class="text-right"><strong>TOTAL:</strong></td>
                                             <td>{{ number_format($totalDespesas, 2, ',', '.') }}</td>
                                             <td></td>
                                         </tr>
