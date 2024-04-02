@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\tipoDespesas;
 use App\Models\Despesa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,36 +21,13 @@ class DespesaController extends Controller
 
         if ($despesa_id > 0) {
             $row = Despesa::find($despesa_id);
-
         }
 
-        $ddlmes = [
-            '1' => 'janeiro',
-            '2' => 'Fevereiro',
-            '3' => 'Março',
-            '4' => 'Abril',
-            '5' => 'Maio',
-            '6' => 'Junho',
-            '7' => 'Julho',
-            '8' => 'Agosto',
-            '9' => 'Setembro',
-            '10' => 'Outubro',
-            '11' => 'Novembro',
-            '12' => 'Dezembro',
-        ];
+        $ddlmes = Despesa::mesesEmPortugues();
 
-        $ddlano = [
-            '2024' => '2024',
-            '2025' => '2025',
-        ];
+        $ddlano = Despesa::dropDownAno();
 
-        $ddltipo = [
-            '1' => 'Alimentação',
-            '2' => 'Educação',
-            '3' => 'Lazer',
-            '4' => 'Saúde',
-            '5' => 'Transporte',
-        ];
+        $ddltipo = tipoDespesas::asSelectArray();
 
         $vars = [
             'row' => $row,
@@ -97,33 +75,14 @@ class DespesaController extends Controller
     {
         $userId = Auth::id();
 
-        $ddltipo = [
-            '1' => 'Alimentação',
-            '2' => 'Educação',
-            '3' => 'Lazer',
-            '4' => 'Saúde',
-            '5' => 'Transporte',
-        ];
+        $data_cadastro_de = date('Y-m-01');
+        $data_cadastro_ate = date('Y-m-d');
 
-        $ddlmes = [
-            '1' => 'janeiro',
-            '2' => 'Fevereiro',
-            '3' => 'Março',
-            '4' => 'Abril',
-            '5' => 'Maio',
-            '6' => 'Junho',
-            '7' => 'Julho',
-            '8' => 'Agosto',
-            '9' => 'Setembro',
-            '10' => 'Outubro',
-            '11' => 'Novembro',
-            '12' => 'Dezembro',
-        ];
+        $ddltipo = tipoDespesas::asSelectArray();
 
-        $ddlano = [
-            '2024' => '2024',
-            '2025' => '2025',
-        ];
+        $ddlmes = Despesa::mesesEmPortugues();
+
+        $ddlano = Despesa::dropDownAno();
 
         $row = (new Despesa())->listaDespesaPorCliente($userId, $request);
 
@@ -133,6 +92,8 @@ class DespesaController extends Controller
             'ddltipo' => $ddltipo,
             'ddlmes' => $ddlmes,
             'ddlano' => $ddlano,
+            'data_cadastro_de' => $data_cadastro_de,
+            'data_cadastro_ate' => $data_cadastro_ate,
         ];
 
         return view('painel.lista', $vars);
