@@ -65,32 +65,30 @@
                                         }}
                                     </div>
                                 </div>
-                                <br><br>
+                                <br>
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <label>Período de Batidas</label>
+                                    <div class="col-sm-8">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">De</div>
-                                                    {{ html()
-                                                        ->date("data_batida_de")
-                                                        ->class('form-control')
-                                                    }}
-                                                </div>
+                                                <label for="data_batida_de">Data de cadastro de</label>
+                                                {{ html()
+                                                    ->date("data_cadastro_de", $data_cadastro_de)
+                                                    ->class('form-control')
+                                                }}
                                             </div>
                                             <div class="col-sm-6">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">Até</div>
-                                                    {{ html()
-                                                        ->date("data_batida_ate")
-                                                        ->class('form-control')
-                                                    }}
-                                                </div>
+                                                <label for="data_batida_ate">Data de cadastro ate</label>
+                                                {{ html()
+                                                    ->date("data_cadastro_ate", $data_cadastro_ate)
+                                                    ->class('form-control')
+                                                }}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 text-end">
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-12 text-end">
                                         {{ html()
                                             ->button('PESQUISAR')
                                             ->type('submit')
@@ -142,7 +140,7 @@
                                                     {{ $despesas->descricao }}
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ App\Models\Despesa::dropDowmTipoCategoria()[$despesas->tipo] }}
+                                                    {{ App\Enums\tipoDespesas::getDescription($despesas->tipo) }}
                                                 </td>
                                                 <td>
                                                     {{ $despesas->dia }}
