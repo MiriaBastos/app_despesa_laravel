@@ -40,6 +40,15 @@ class Despesa extends Authenticatable
             $query->where('ano', $request->ano);
         }
 
+
+        if ($request->data_cadastro_de) {
+            $query->where('created_at', '>=', $request->data_cadastro_de);
+        }
+
+        if ($request->data_cadastro_ate) {
+            $query->where('created_at', '<=', $request->data_cadastro_ate . " 23:59:59");
+        }
+
         return $query->get();
     }
 
@@ -66,14 +75,11 @@ class Despesa extends Authenticatable
         ];
     }
 
-    public static function dropDowmTipoCategoria()
+    public static function dropDownAno()
     {
         return [
-            1 => 'Alimentação',
-            2 => 'Educação',
-            3 => 'Lazer',
-            4 => 'Saúde',
-            5 => 'Transporte',
+            '2024' => 2024,
+            '2025' => 2025,
         ];
     }
 }
