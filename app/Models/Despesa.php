@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\despesasRecorrenteStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -81,5 +83,31 @@ class Despesa extends Authenticatable
             '2024' => 2024,
             '2025' => 2025,
         ];
+    }
+
+    public function cadastraDespesaRecorrente()
+    {
+        $ativo = despesasRecorrenteStatus::ATIVO;
+        $mesAtual = date('m');
+        $anoAtual = date('Y');
+
+        $data = $this->select()
+                ->where('despesa_recorrente', $ativo)
+                ->get();
+
+        foreach ($data as $despesa) {
+            $novaDespesa = new Despesa();
+
+            $novaDespesa->mes       = $mesAtual;
+            $novaDespesa->ano       = $anoAtual;
+            $novaDespesa->user_id   = $despesa->user_id;
+            $novaDespesa->dia       = $despesa->dia;
+            $novaDespesa->tipo      = $despesa->tipo;
+            $novaDespesa->descricao = $despesa->descricao;
+            $novaDespesa->valor     = $despesa->valor;
+            $novaDespesa->despesa_recorrente = $despesa->despesa_recorrente;
+
+            $novaDespesa->save();
+        }
     }
 }
