@@ -121,6 +121,7 @@
                                             <th>Ano</th>
                                             <th>Valor</th>
                                             <th>Dt Cadastro</th>
+                                            <th>Desp. Recorrente</th>
                                             <th class="text-right"></th>
                                         </tr>
                                     </thead>
@@ -157,6 +158,9 @@
                                                 <td>
                                                     {{ date('d/m/Y', strtotime($despesas->created_at)) }}
 
+                                                </td>
+                                                <td>
+                                                    {!! App\Enums\despesasRecorrenteStatus::getHtmlLabel($despesas->despesa_recorrente) !!}
                                                 </td>
                                                 <td class="text-right">
                                                     <a href="{{action('\App\Http\Controllers\DespesaController@getForm', ['despesa_id'=> $despesas->id])}}" class="btn btn-sm btn-warning">
