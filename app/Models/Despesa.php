@@ -87,8 +87,9 @@ class Despesa extends Authenticatable
 
     public function cadastraDespesaRecorrente()
     {
-        $ativo = despesasRecorrenteStatus::ATIVO;
+        $ativo = despesasRecorrenteStatus::RECORRENTE;
         $mesAtual = date('m');
+        $mesAtualSemZero = ($mesAtual < 10) ? ltrim($mesAtual, '0') : $mesAtual;
         $anoAtual = date('Y');
 
         $data = $this->select()
@@ -96,9 +97,10 @@ class Despesa extends Authenticatable
                 ->get();
 
         foreach ($data as $despesa) {
+
             $novaDespesa = new Despesa();
 
-            $novaDespesa->mes       = $mesAtual;
+            $novaDespesa->mes       = $mesAtualSemZero;
             $novaDespesa->ano       = $anoAtual;
             $novaDespesa->user_id   = $despesa->user_id;
             $novaDespesa->dia       = $despesa->dia;
