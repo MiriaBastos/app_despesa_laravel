@@ -16,6 +16,9 @@ final class tipoDespesas extends Enum
     #[Description('Lazer')]
     const LAZER = '3';
 
+    #[Description('Casa')]
+    const CASA = '8';
+
     #[Description('Saúde')]
     const SAUDE = '4';
 
