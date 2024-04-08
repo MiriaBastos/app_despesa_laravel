@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\despesasRecorrenteStatus;
 use App\Enums\tipoDespesas;
 use App\Models\Despesa;
 use Illuminate\Http\Request;
@@ -45,6 +46,12 @@ class DespesaController extends Controller
             $row = Despesa::find($request->id);
         }else{
             $row = new Despesa();
+        }
+
+        if ($request->despesa_recorrente == 1) {
+            $row->despesa_recorrente = $request->despesa_recorrente;
+        }else {
+            $row->despesa_recorrente = despesasRecorrenteStatus::NAO_RECORRENTE;
         }
 
         $row->user_id = Auth::id();
