@@ -34,6 +34,20 @@
 
                             {{ html()->hidden('id') }}
 
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-check">
+                                            {{ html()
+                                                ->checkbox('despesa_recorrente')
+                                                ->class('form-check-input')
+                                            }}
+                                            <label for="divida_recorrente" class="form-check-label">
+                                                Marcar caso essa dívida seja recorrente em suas despesas
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
                                 <div class="row mb-3">
                                     <div class="col-sm-2">
                                         <label for="dia" class="form-label">Dia</label>
