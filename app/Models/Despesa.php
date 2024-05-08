@@ -94,6 +94,8 @@ class Despesa extends Authenticatable
 
         $data = $this->select()
                 ->where('despesa_recorrente', $ativo)
+                ->where('mes', '!=', $mesAtual)
+                ->where('ano', '=', $anoAtual)
                 ->get();
 
         foreach ($data as $despesa) {
